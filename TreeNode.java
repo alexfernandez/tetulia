@@ -9,20 +9,22 @@ public class TreeNode {
 
     TreeNode my = this;
 
-    while (my != null || other != null) {
+    while (my!=null || other!=null) {
+      if (myAncestors.contains(other))
+         return other;
+      if (otherAncestors.contains(my))
+         return my;
+
       if (my != null) {
         myAncestors.add(my);
         my = my.parent;
+        continue;
       }
-      if( other != null) {
+      if (other != null) {
         otherAncestors.add(other);
         other = other.parent;
+        continue;
       }
-
-      Set<TreeNode> intersection =  new HashSet<TreeNode>(myAncestors);
-      intersection.retainAll(otherAncestors);
-      if (!intersection.isEmpty())
-         return intersection.iterator().next();
     } 
 
     return null;
