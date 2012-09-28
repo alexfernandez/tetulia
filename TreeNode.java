@@ -9,21 +9,28 @@ public class TreeNode {
 
     TreeNode my = this;
 
+    boolean flip = true;
     while (my!=null || other!=null) {
       if (myAncestors.contains(other))
          return other;
       if (otherAncestors.contains(my))
          return my;
 
-      if (my != null) {
-        myAncestors.add(my);
-        my = my.parent;
-        continue;
+      if (flip) {
+        flip = false;
+        if (my != null) {
+          myAncestors.add(my);
+          my = my.parent;
+          continue;
+        }
       }
-      if (other != null) {
-        otherAncestors.add(other);
-        other = other.parent;
-        continue;
+      if (!flip) {
+        flip = true;
+        if (other != null) {
+          otherAncestors.add(other);
+          other = other.parent;
+          continue;
+        }
       }
     } 
 
