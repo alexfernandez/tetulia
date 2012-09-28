@@ -23,4 +23,17 @@ public class TreeNodeTest {
     assertEquals(parent, other.findFirstCommonAncestor(one));
   }
 
+  @Test public void oneIsUncleOfOther() {
+    TreeNode one = new TreeNode();
+    TreeNode other = new TreeNode();
+    other.parent = new TreeNode();
+
+    TreeNode oneParent= new TreeNode();
+    one.parent = oneParent;
+    other.parent.parent = oneParent;
+
+    assertEquals(oneParent, one.findFirstCommonAncestor(other));
+    assertEquals(oneParent, other.findFirstCommonAncestor(one));
+  }
+
 }
