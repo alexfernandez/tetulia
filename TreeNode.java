@@ -13,32 +13,27 @@ public class TreeNode {
     TreeNode my = this;
 
     int step = stepSize + 1;
-    while (my!=null || other!=null) {
-      if (myAncestors.contains(other))
-         return other;
-      if (otherAncestors.contains(my))
-         return my;
+    while (my != null || other != null) {
 
-      if (step> 1) {
+      while (step> 1 && my != null) {
+        if (otherAncestors.contains(my))
+          return my;
         step--;
-        if (my != null) {
-          myAncestors.add(my);
-          my = my.parent;
-          continue;
-        } 
+        myAncestors.add(my);
+        my = my.parent;
       }
+
       if (step == 1 || my == null)
         step = -(stepSize + 1);
       if (step == -1 || other == null)
         step = stepSize + 1;
 
-      if (step< -1) {
+      while (step< -1 && other !=null) {
+        if (myAncestors.contains(other))
+          return other;
         step++;
-        if (other != null) {
-          otherAncestors.add(other);
-          other = other.parent;
-          continue;
-        }
+        otherAncestors.add(other);
+        other = other.parent;
       }
     } 
 
