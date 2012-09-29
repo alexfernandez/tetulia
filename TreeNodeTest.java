@@ -15,25 +15,20 @@ public class TreeNodeTest {
   @Test public void oneIsSiblingOfOther() {
     TreeNode one = new TreeNode();
     TreeNode other = new TreeNode();
-    TreeNode parent = new TreeNode();
-    one.parent = parent;
-    other.parent = parent;
+    one.parent = other.parent = new TreeNode();
 
-    assertEquals(parent, one.findFirstCommonAncestor(other));
-    assertEquals(parent, other.findFirstCommonAncestor(one));
+    assertEquals(one.parent, one.findFirstCommonAncestor(other));
+    assertEquals(one.parent, other.findFirstCommonAncestor(one));
   }
 
   @Test public void oneIsUncleOfOther() {
     TreeNode one = new TreeNode();
     TreeNode other = new TreeNode();
     other.parent = new TreeNode();
+    one.parent = other.parent.parent = new TreeNode();
 
-    TreeNode oneParent= new TreeNode();
-    one.parent = oneParent;
-    other.parent.parent = oneParent;
-
-    assertEquals(oneParent, one.findFirstCommonAncestor(other));
-    assertEquals(oneParent, other.findFirstCommonAncestor(one));
+    assertEquals(one.parent, one.findFirstCommonAncestor(other));
+    assertEquals(one.parent, other.findFirstCommonAncestor(one));
   }
 
 }
