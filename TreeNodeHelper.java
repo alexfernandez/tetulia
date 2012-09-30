@@ -1,47 +1,57 @@
-import java.util.Set;
-import java.util.HashSet;
+public class TreeNodeHelper {
+	
+	public static TreeNode findCommonAncestor(final TreeNode _one, final TreeNode _two) {
 
-public final class TreeNodeHelper {
+		// first I'm going to calculate the deep of each node (2n)
+		int oneDeep = 1,
+			twoDeep = 1;
 
-    public final static TreeNode findCommonAncestor(final TreeNode _one,
-                                                    final TreeNode _two) {
-        TreeNode result = null,
-                one = _one,
-                two = _two;
+		TreeNode commonAncestor = null,
+				 one = _one, 
+				 two = _two;
 
-        if (one == two) {
-            result = one;
-        } else {
-            final Set<TreeNode> oneAncestors = new HashSet<TreeNode>();
-            final Set<TreeNode> twoAncestors = new HashSet<TreeNode>();
+		while (one.parent != null) {
+			one = one.parent;
+			oneDeep++;
+		}
 
-            oneAncestors.add(one);
-            twoAncestors.add(two);
+		while (two.parent != null) {
+			two = two.parent;
+			twoDeep++;
+		}
 
-            while (result == null) {
+		one = _one;
+		two = _two;
 
-                if (one.parent != null) {
-                    one = one.parent;
-                    if (twoAncestors.contains(one)) {
-                        result = one;
-                    } else {
-                        oneAncestors.add(one);
-                    }
-                }
+		// now I'm going to calculate the common ancestor (n)
 
-                if (result == null && two.parent != null) {
-                    two = two.parent;
-                    if (oneAncestors.contains(two)) {
-                        result = two;
-                    } else {
-                        twoAncestors.add(two);
-                    }
-                }
+		// first I don't need to check equality
+		while (oneDeep > twoDeep) {
+			oneDeep--;
+			one = one.parent;
+		}
 
-            }
-        }
+		while (twoDeep > oneDeep) {
+			twoDeep--;
+			two = two.parent;
+		}
 
-        return result;
-    }
+		// now I need to compare the equality
+		while (commonAncestor == null) {
+			if (one == two) {
+				commonAncestor = one;
+			} else {
+				if (oneDeep == twoDeep) {
+					oneDeep--;
+					one = one.parent;
+				} else {
+					twoDeep--;
+					two = two.parent;
+				}
+			}
+		}
 
+		return commonAncestor;
+
+	}
 }
