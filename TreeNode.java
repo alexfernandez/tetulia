@@ -25,8 +25,22 @@ public class TreeNode {
 		{
 			return other;
 		}
-		parentsLeft.add(this.parent);
-		parentsRight.add(other.parent);
-		return this.parent.findAncestor(other.parent, parentsLeft, parentsRight);
+		if (this.parent == null && other.parent == null)
+		{
+			return null;
+		}
+		TreeNode left = this;
+		if (this.parent != null)
+		{
+			left = this.parent;
+			parentsLeft.add(this.parent);
+		}
+		TreeNode right = other;
+		if (other.parent != null)
+		{
+			right = other.parent;
+			parentsRight.add(other.parent);
+		}
+		return left.findAncestor(right, parentsLeft, parentsRight);
 	}
 }
