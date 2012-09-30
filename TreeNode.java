@@ -1,6 +1,3 @@
-import java.util.Set;
-import java.util.HashSet;
-
 public class TreeNode {
 
   public TreeNode parent;
@@ -8,7 +5,7 @@ public class TreeNode {
   TreeNode findFirstCommonAncestor(TreeNode other) {
     TreeNode one = this; 
 
-     // first calculate the depth diff of between 2 nodes (2n)
+     // first calculate the depth diff of between 2 nodes
      int depthDiff = one.depth() - other.depth();
 
      // make both nodes to be in the same level
