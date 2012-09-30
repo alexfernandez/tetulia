@@ -41,13 +41,8 @@ public class TreeNodeHelper {
 			if (one == two) {
 				commonAncestor = one;
 			} else {
-				if (oneDeep == twoDeep) {
-					oneDeep--;
-					one = one.parent;
-				} else {
-					twoDeep--;
-					two = two.parent;
-				}
+				one = one.parent;
+				two = two.parent;
 			}
 		}
 
