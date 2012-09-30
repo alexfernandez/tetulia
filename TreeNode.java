@@ -7,7 +7,27 @@ public class TreeNode {
   public TreeNode parent;
 
   TreeNode findFirstCommonAncestor(TreeNode other) {
-    return TreeNodeHelper.findFirstCommonAncestor(this, other);
+    TreeNode result = null, one = this; 
+
+     // first calculate the depth dif of between 2 nodes (2n)
+     int depthDiff = one.depth() - other.depth();
+
+     // make both nodes to be in the same level
+     if (depthDiff > 0)
+       one = one.ancestor(depthDiff);
+     else
+       other = other.ancestor(-depthDiff);
+
+     // now compare the equality
+     while (result == null) { 
+       if (one == other) {
+         result = one;
+       } else {
+         one = one.parent;
+         other = other.parent;
+       }
+     }
+     return result;
   }
 
   int depth() {
