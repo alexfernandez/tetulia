@@ -1,42 +1,32 @@
+import java.util.ArrayList;
+
 public class TreeNode {
 
-  public TreeNode parent;
+	public TreeNode parent;
 
-  TreeNode findFirstCommonAncestor(TreeNode other) {
-    TreeNode one = this; 
+	TreeNode findFirstCommonAncestor(TreeNode other)
+	{
+		ArrayList<TreeNode> left = new ArrayList<TreeNode>();
+		ArrayList<TreeNode> right = new ArrayList<TreeNode>();
+		return this.findAncestor(other, left, right);
+	}
 
-     // first calculate the depth diff of between 2 nodes
-     int depthDiff = one.depth() - other.depth();
-
-     // make both nodes to be in the same level
-     if (depthDiff > 0)
-       one = one.ancestor(depthDiff);
-     else
-       other = other.ancestor(-depthDiff);
-
-     // now compare the equality
-     while (one != other && one != null && other != null){
-       one = one.parent;
-       other = other.parent;
-     }
-
-     return one == null ? null : other;
-  }
-
-  int depth() {
-    int result = 0;
-    for(TreeNode node = this; node != null; node = node.parent)
-      result++;
-
-    return result;
-  }
-
-  TreeNode ancestor(int distance) {
-    TreeNode node = this;
-    for(int i = distance; i >0 && node != null; i--)
-      node = node.parent;
-
-    return node;
-  }
-  
+	TreeNode findAncestor(TreeNode other, ArrayList<TreeNode> parentsLeft, ArrayList<TreeNode> parentsRight)
+	{
+		if (this == other)
+		{
+			return this;
+		}
+		if (parentsRight.contains(this))
+		{
+			return this;
+		}
+		if (parentsLeft.contains(other))
+		{
+			return other;
+		}
+		parentsLeft.add(this.parent);
+		parentsRight.add(other.parent);
+		return this.parent.findAncestor(other.parent, parentsLeft, parentsRight);
+	}
 }
