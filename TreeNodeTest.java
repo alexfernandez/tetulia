@@ -31,4 +31,14 @@ public class TreeNodeTest {
     assertEquals(one.parent, other.findFirstCommonAncestor(one));
   }
 
+  @Test public void noRelationship() {
+    TreeNode one = new TreeNode();
+    TreeNode other = new TreeNode();
+    one.parent = new TreeNode();
+	other.parent = new TreeNode();
+
+    assertEquals(null, one.findFirstCommonAncestor(other));
+    assertEquals(null, other.findFirstCommonAncestor(one));
+  }
+
 }
