@@ -8,8 +8,8 @@ public class TreeNodeTest {
     TreeNode other = new TreeNode();
     other.parent = one;
 
-    assertEquals(one, TreeNodeHelper.findCommonAncestor(one, other));
-    assertEquals(one, TreeNodeHelper.findCommonAncestor(other, one));
+    assertEquals(one, one.findFirstCommonAncestor(other));
+    assertEquals(one, other.findFirstCommonAncestor(one));
   }
 
   @Test public void oneIsSiblingOfOther() {
@@ -17,8 +17,8 @@ public class TreeNodeTest {
     TreeNode other = new TreeNode();
     one.parent = other.parent = new TreeNode();
 
-    assertEquals(one.parent, TreeNodeHelper.findCommonAncestor(one, other));
-    assertEquals(one.parent, TreeNodeHelper.findCommonAncestor(other, one));
+    assertEquals(one.parent, one.findFirstCommonAncestor(other));
+    assertEquals(one.parent, other.findFirstCommonAncestor(one));
   }
 
   @Test public void oneIsUncleOfOther() {
@@ -27,8 +27,8 @@ public class TreeNodeTest {
     other.parent = new TreeNode();
     one.parent = other.parent.parent = new TreeNode();
 
-    assertEquals(one.parent, TreeNodeHelper.findCommonAncestor(one, other));
-    assertEquals(one.parent, TreeNodeHelper.findCommonAncestor(other, one));
+    assertEquals(one.parent, one.findFirstCommonAncestor(other));
+    assertEquals(one.parent, other.findFirstCommonAncestor(one));
   }
 
 }

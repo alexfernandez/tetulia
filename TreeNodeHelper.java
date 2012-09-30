@@ -1,6 +1,6 @@
 public class TreeNodeHelper {
 	
-	public static TreeNode findCommonAncestor(final TreeNode _one, final TreeNode _two) {
+	public static TreeNode findFirstCommonAncestor(final TreeNode _one, final TreeNode _two) {
 
 		// first I'm going to calculate the deep of each node (2n)
 		int oneDeep = 1,
